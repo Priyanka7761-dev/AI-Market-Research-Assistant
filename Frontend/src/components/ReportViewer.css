@@ -1,0 +1,46 @@
+.report-container {
+  width: 85%;
+  margin: 40px auto;
+  padding: 35px;
+  background: #1f1f1f;
+  border-radius: 18px;
+  color: white;
+  box-shadow: 0 15px 40px rgba(0,0,0,0.35);
+  line-height: 1.8;
+}
+
+.report-container h2 {
+  text-align: center;
+  margin-bottom: 30px;
+  font-size: 2rem;
+}
+
+.report-container h1,
+.report-container h2,
+.report-container h3 {
+  color: #5da8ff;
+  margin-top: 25px;
+}
+
+.report-container p {
+  color: #d8d8d8;
+}
+
+.report-container ul,
+.report-container ol {
+  padding-left: 25px;
+}
+
+.report-container li {
+  margin: 10px 0;
+}
+
+.report-container strong {
+  color: white;
+}
+
+.report-container hr {
+  border: none;
+  border-top: 1px solid #444;
+  margin: 25px 0;
+}

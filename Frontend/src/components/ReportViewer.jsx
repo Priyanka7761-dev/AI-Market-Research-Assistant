@@ -1,7 +1,14 @@
-function ReportViewer() {
+import "./ReportViewer.css";
+import ReactMarkdown from "react-markdown";
+
+function ReportViewer({ report }) {
+  console.log("Report Received:", report);
+
   return (
-    <div>
-      <h2>AI Report will appear here...</h2>
+    <div className="report-container">
+      <h2>📄 AI Market Research Report</h2>
+
+      <ReactMarkdown>{report}</ReactMarkdown>
     </div>
   );
 }

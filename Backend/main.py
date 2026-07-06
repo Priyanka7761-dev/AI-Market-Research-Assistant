@@ -4,14 +4,19 @@ from dotenv import load_dotenv
 import google.generativeai as genai
 import os
 
+# Load environment variables
 load_dotenv()
 
+# Configure Gemini API
 genai.configure(api_key=os.getenv("GEMINI_API_KEY"))
 
+# Gemini Model
 model = genai.GenerativeModel("gemini-2.5-flash")
 
+# FastAPI App
 app = FastAPI()
 
+# Enable CORS
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],
@@ -20,29 +25,62 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+
 @app.get("/")
 def home():
-    return {"message": "AI Market Research Assistant API"}
+    return {
+        "message": "AI Market Research Assistant API is Running 🚀"
+    }
+
 
 @app.get("/test")
 def test():
-    return {"status": "Backend Connected Successfully"}
+    return {
+        "status": "Backend Connected Successfully"
+    }
+
 
 @app.get("/generate-report")
 def generate_report(topic: str):
 
     prompt = f"""
-    Create a market research report on {topic}.
+You are a professional Market Research Analyst.
 
-    Include:
-    1. Market Overview
-    2. Key Trends
-    3. Top Competitors
-    4. Opportunities
-    5. Challenges
+Generate a detailed market research report on:
 
-    Keep the report concise and professional.
-    """
+{topic}
+
+Return ONLY valid GitHub Markdown.
+
+Rules:
+- Do NOT use fake dates.
+- Do NOT write "Prepared For".
+- Do NOT use decorative separators like ---.
+- Use Markdown headings properly.
+- Use bullet points where appropriate.
+- Use concise and professional language.
+- Do not mention that you are an AI.
+
+Format:
+
+# {topic} Market Research Report
+
+## Market Overview
+
+## Key Trends
+
+## Market Size
+
+## Top Competitors
+
+## Opportunities
+
+## Challenges
+
+## AI Recommendations
+
+Provide useful and realistic business insights.
+"""
 
     response = model.generate_content(prompt)
 
@@ -51,6 +89,7 @@ def generate_report(topic: str):
         "report": response.text
     }
 
+
 @app.get("/models")
 def list_models():
     models = []
@@ -58,4 +97,6 @@ def list_models():
     for m in genai.list_models():
         models.append(m.name)
 
-    return {"models": models}
+    return {
+        "models": models
+    }

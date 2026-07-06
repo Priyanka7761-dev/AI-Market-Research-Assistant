@@ -1,5 +1,5 @@
 import { useState, useEffect} from "react";
-
+import api from "../services/api";
 import Navbar from "../components/Navbar";
 import Hero from "../components/Hero";
 import SearchBox from "../components/SearchBox";
@@ -15,6 +15,9 @@ function Dashboard() {
   const [step, setStep] = useState("");
 
   const [showReport, setShowReport] = useState(false);
+
+  const [report, setReport] = useState("");
+
   const AI_STEPS = [
   { progress: 20, step: "⚡ Initializing AI Engine..." },
   { progress: 40, step: "📊 Reading Industry Reports..." },
@@ -25,6 +28,15 @@ function Dashboard() {
 
   const handleGenerate = (data) => {
   console.log(data);
+
+  api.get(`/generate-report?topic=${data.industry}`)
+  .then((response) => {
+    console.log(response.data);
+    setReport(response.data.report);
+  })
+  .catch((error) => {
+    console.error(error);
+  });
 
   setLoading(true);
 
@@ -80,7 +92,7 @@ useEffect(() => {
   />
 )}
 
-      {showReport && <ReportViewer />}
+      {showReport && <ReportViewer report={report} />}
     </>
   );
 }
