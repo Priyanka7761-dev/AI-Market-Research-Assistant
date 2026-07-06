@@ -1,46 +1,156 @@
 .report-container {
   width: 85%;
-  margin: 40px auto;
-  padding: 35px;
-  background: #1f1f1f;
-  border-radius: 18px;
-  color: white;
-  box-shadow: 0 15px 40px rgba(0,0,0,0.35);
+  max-width: 1200px;
+  margin: 50px auto;
+  padding: 40px;
+  background: linear-gradient(145deg, #1f1f1f, #262626);
+  border-radius: 20px;
+  color: #ffffff;
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4);
+  border: 1px solid #333;
   line-height: 1.8;
+  transition: 0.3s ease;
+}
+
+.report-container:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 20px 45px rgba(0, 0, 0, 0.45);
 }
 
 .report-container h2 {
   text-align: center;
-  margin-bottom: 30px;
   font-size: 2rem;
+  margin-bottom: 35px;
+  color: #5da8ff;
 }
 
-.report-container h1,
-.report-container h2,
-.report-container h3 {
+.report-container h1 {
   color: #5da8ff;
+  font-size: 2.2rem;
   margin-top: 25px;
+  margin-bottom: 20px;
+  border-bottom: 2px solid #333;
+  padding-bottom: 10px;
+}
+
+.report-container h2:not(:first-child) {
+  font-size: 1.7rem;
+  margin-top: 35px;
+  color: #7ec3ff;
+}
+
+.report-container h3 {
+  font-size: 1.3rem;
+  margin-top: 25px;
+  color: #9fd4ff;
 }
 
 .report-container p {
   color: #d8d8d8;
+  font-size: 1.05rem;
+  margin: 12px 0;
 }
 
 .report-container ul,
 .report-container ol {
-  padding-left: 25px;
+  margin: 18px 0;
+  padding-left: 30px;
 }
 
 .report-container li {
   margin: 10px 0;
+  color: #e6e6e6;
 }
 
 .report-container strong {
-  color: white;
+  color: #ffffff;
 }
 
 .report-container hr {
   border: none;
   border-top: 1px solid #444;
-  margin: 25px 0;
+  margin: 30px 0;
+}
+
+.report-container code {
+  background: #2b2b2b;
+  padding: 3px 8px;
+  border-radius: 6px;
+  color: #ffd166;
+}
+
+.report-container blockquote {
+  border-left: 4px solid #5da8ff;
+  padding-left: 18px;
+  margin: 20px 0;
+  color: #cfcfcf;
+  font-style: italic;
+}
+
+.report-container table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 25px;
+}
+
+.report-container th,
+.report-container td {
+  border: 1px solid #444;
+  padding: 12px;
+  text-align: left;
+}
+
+.report-container th {
+  background: #2d2d2d;
+  color: #5da8ff;
+}
+
+.report-container td {
+  background: #242424;
+}
+.report-info {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 18px;
+  margin: 30px 0;
+  padding: 20px;
+  background: #2a2a2a;
+  border: 1px solid #3a3a3a;
+  border-radius: 12px;
+}
+
+.report-info div {
+  color: #e0e0e0;
+  font-size: 1rem;
+}
+
+.report-info strong {
+  color: #5da8ff;
+}
+.report-actions {
+  display: flex;
+  justify-content: flex-end;
+  margin: 20px 0 30px;
+}
+
+.copy-btn {
+  background: #5da8ff;
+  color: white;
+  border: none;
+  padding: 12px 22px;
+  border-radius: 10px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.copy-btn:hover {
+  background: #3f8cff;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(93, 168, 255, 0.3);
+}
+
+.copy-btn:active {
+  transform: scale(0.98);
 }

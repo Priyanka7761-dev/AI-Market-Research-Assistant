@@ -18,6 +18,12 @@ function Dashboard() {
 
   const [report, setReport] = useState("");
 
+  const [industry, setIndustry] = useState("");
+
+const [country, setCountry] = useState("");
+
+const [reportType, setReportType] = useState("");
+
   const AI_STEPS = [
   { progress: 20, step: "⚡ Initializing AI Engine..." },
   { progress: 40, step: "📊 Reading Industry Reports..." },
@@ -27,6 +33,10 @@ function Dashboard() {
 ];
 
   const handleGenerate = (data) => {
+
+    setIndustry(data.industry);
+setCountry(data.country);
+setReportType(data.reportType);
   console.log(data);
 
   api.get(`/generate-report?topic=${data.industry}`)
@@ -92,7 +102,14 @@ useEffect(() => {
   />
 )}
 
-      {showReport && <ReportViewer report={report} />}
+      {showReport && (
+  <ReportViewer
+    report={report}
+    industry={industry}
+    country={country}
+    reportType={reportType}
+  />
+)}
     </>
   );
 }
