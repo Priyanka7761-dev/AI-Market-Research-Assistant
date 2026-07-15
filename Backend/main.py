@@ -1,3 +1,4 @@
+import time
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from dotenv import load_dotenv
@@ -65,6 +66,10 @@ Format:
 
 # {topic} Market Research Report
 
+## Executive Summary
+
+Write a concise executive summary (150–200 words) highlighting the key findings, market outlook, major competitors, opportunities, and recommendations.
+
 ## Market Overview
 
 ## Key Trends
@@ -82,13 +87,52 @@ Format:
 Provide useful and realistic business insights.
 """
 
-    response = model.generate_content(prompt)
+    try:
+        response = None
+
+        for attempt in range(2):
+            try:
+                response = model.generate_content(prompt)
+                break
+
+            except Exception as e:
+                print(f"Attempt {attempt + 1} failed: {e}")
+
+                if attempt == 0:
+                    print("Retrying in 3 seconds...")
+                    time.sleep(3)
+                else:
+                    raise
+
+        return {
+            "success": True,
+            "topic": topic,
+            "report": response.text
+        }
+
+    except Exception as e:
+
+        error_message = str(e)
+
+    if "429" in error_message or "ResourceExhausted" in error_message:
+        user_message = "⚠️ AI service is currently busy. Please try again in a minute."
+
+    elif "timeout" in error_message.lower():
+        user_message = "⏳ Request timed out. Please try again."
+
+    elif "connection" in error_message.lower():
+        user_message = "🌐 Network connection problem. Please check your internet."
+
+    else:
+        user_message = "⚠️ Unable to generate the report. Please try again later."
 
     return {
+        "success": False,
         "topic": topic,
-        "report": response.text
+        "report": "",
+        "message": user_message,
+        "error": error_message
     }
-
 
 @app.get("/models")
 def list_models():

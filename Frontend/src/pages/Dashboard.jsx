@@ -24,6 +24,8 @@ const [country, setCountry] = useState("");
 
 const [reportType, setReportType] = useState("");
 
+const [errorMessage, setErrorMessage] = useState("");
+
   const AI_STEPS = [
   { progress: 20, step: "⚡ Initializing AI Engine..." },
   { progress: 40, step: "📊 Reading Industry Reports..." },
@@ -34,6 +36,11 @@ const [reportType, setReportType] = useState("");
 
   const handleGenerate = (data) => {
 
+    setShowReport(false);
+setReport("");
+setLoading(true);
+setErrorMessage("");
+
     setIndustry(data.industry);
 setCountry(data.country);
 setReportType(data.reportType);
@@ -41,14 +48,27 @@ setReportType(data.reportType);
 
   api.get(`/generate-report?topic=${data.industry}`)
   .then((response) => {
+
     console.log(response.data);
-    setReport(response.data.report);
-  })
+
+    if (response.data.success) {
+
+        setReport(response.data.report);
+
+    } else {
+
+        setErrorMessage(response.data.message);
+
+        setLoading(false);
+
+        setShowReport(false);
+
+    }
+
+})
   .catch((error) => {
     console.error(error);
   });
-
-  setLoading(true);
 
 };
 
@@ -101,6 +121,25 @@ useEffect(() => {
     step={step}
   />
 )}
+
+{errorMessage && (
+  <div
+    style={{
+      width: "80%",
+      margin: "30px auto",
+      padding: "20px",
+      background: "#ff4d4f",
+      color: "white",
+      borderRadius: "12px",
+      textAlign: "center",
+      fontSize: "18px",
+      fontWeight: "bold",
+    }}
+  >
+    {errorMessage}
+  </div>
+)}
+
 
       {showReport && (
   <ReportViewer
